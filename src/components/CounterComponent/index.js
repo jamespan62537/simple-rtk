@@ -1,7 +1,10 @@
 import React, { useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 // action
-import { counterActions } from "../../features/counter/counterSlice";
+import {
+  counterActions,
+  incrementCountAsyncAction,
+} from "../../features/counter/counterSlice";
 
 const CounterComponent = () => {
   const dispatch = useDispatch();
@@ -18,12 +21,18 @@ const CounterComponent = () => {
     [dispatch, decrementCountAction]
   );
 
+  const handleAsyncIncrement = useCallback(
+    () => dispatch(incrementCountAsyncAction(2)),
+    [dispatch]
+  );
+
   return (
     <div className="flex flex-col">
       <p>Current Count Is {count}</p>
       <div className="flex">
         <button onClick={handleIncrement}>Increment</button>
         <button onClick={handleDecrement}>Decrement</button>
+        <button onClick={handleAsyncIncrement}>Async Increment</button>
       </div>
     </div>
   );
